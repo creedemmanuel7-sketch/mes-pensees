@@ -1,4 +1,5 @@
 import 'react-native-get-random-values';
+import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -50,7 +51,8 @@ function AppNavigator() {
     }
   }, [isAuthenticated]);
 
-  if (isFirstLaunch === null) return null;
+  // Sur le Web, on évite de bloquer l'affichage si le chargement prend du temps
+  if (isFirstLaunch === null && Platform.OS !== 'web') return null;
 
   return (
     <>
@@ -105,7 +107,7 @@ function AppNavigator() {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={Platform.OS === 'web' ? { flex: 1, minHeight: '100vh' } : { flex: 1 }}>
       <ThemeProvider>
         <AuthProvider>
           <NotesProvider>

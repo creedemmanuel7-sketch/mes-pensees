@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import * as LocalAuthentication from 'expo-local-authentication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AppState } from 'react-native';
+import { AppState, Platform } from 'react-native';
 
 const AuthContext = createContext();
 
@@ -70,6 +70,10 @@ export function AuthProvider({ children }) {
       if (savedAutoLock)     setAutoLockMinutes(parseInt(savedAutoLock));
       if (savedRecovery)     setRecoveryKeywordsState(JSON.parse(savedRecovery));
 
+      if (Platform.OS === 'web') {
+        setBiometricAvailable(false);
+        return;
+      }
       const compatible = await LocalAuthentication.hasHardwareAsync();
       const enrolled   = await LocalAuthentication.isEnrolledAsync();
       setBiometricAvailable(compatible && enrolled);
