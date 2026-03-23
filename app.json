@@ -1,29 +1,54 @@
 {
   "expo": {
-    "name": "MesPensees",
-    "slug": "MesPensees",
+    "name": "Mes Pensées",
+    "slug": "mes-pensees",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0a0a0b"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.mespensees.app",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Mes Pensées utilise FaceID pour protéger votre journal privé.",
+        "NSCameraUsageDescription": "Mes Pensées utilise la caméra pour la reconnaissance faciale et les alertes d'intrusion."
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#0a0a0b"
+      },
+      "package": "com.mespensees.app",
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT",
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "backgroundColor": "#0a0a0b",
+      "themeColor": "#0a0a0b",
+      "description": "Un sanctuaire numérique pour vos pensées les plus intimes.",
+      "display": "standalone",
+      "lang": "fr"
+    },
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Mes Pensées utilise FaceID pour protéger votre journal privé."
+        }
+      ]
+    ]
   }
 }
